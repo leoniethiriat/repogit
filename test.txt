@@ -1,5 +1,12 @@
 t
+.
 e
+<<<<<<< HEAD
 s..
+=======
+.
+s
+.
+>>>>>>> branche_machin
 t
 
