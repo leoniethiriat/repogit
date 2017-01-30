@@ -8,23 +8,7 @@ class MyState(object):
         self.state = state
         self.idt = idteam
         self.idp = idplayer
-    
-    def my_position(self):
-        return self.state.player_state(self.idt, self.idp).position
-    
-    def ball_position(self):
-        return self.state.ball.position
-        
-    def aller(self,p):
-        return SoccerAction(p-self.my_position(), Vector2D())
-        
-    
-    def shoot(self,p):
-        return SoccerAction(Vector2D(), p-self.my_position())
-        
-    def degagement(self):
-        return SoccerAction(Vector2D(), Vector2D.create_random(-0.5,0.5)-self.state.my_position())
-
+    @property
     def equipierleplusproche(self):
         dist = 500
         idx = 0
@@ -33,11 +17,19 @@ class MyState(object):
                 continue
             if idp != self.idp:
                 continue
-            if self.my_position().distance(self.state.player_state(idt,idp).position)<dist:
+            if self.my_position.distance(self.state.player_state(idt,idp).position)<dist:
                 idx = idp
-                dist = self.my_position().distance(self.state.player_state(idt,idp).position)
-        return (idt, idx)
+                dist = self.my_position.distance(self.state.player_state(idt,idp).position)
+                pos = self.state.player_state(idt,idp).position
+        return pos
     
+    @property
+    def my_position(self):
+        return self.state.player_state(self.idt, self.idp).position
+    
+    def ball_position(self):
+        return self.state.ball.position
+        
     def pos_sonbut(self):
         if self.idt==1:
             return Vector2D(settings.GAME_WIDTH,settings.GAME_HEIGHT/2)
@@ -57,27 +49,31 @@ class MyState(object):
                 continue
             if idp != self.idp:
                 continue
-            if self.my_position().distance(self.state.player_state(idt,idp).position)<dist:
+            if self.my_position.distance(self.state.player_state(idt,idp).position)<dist:
                 idx = idp
-                dist = self.my_position().distance(self.state.player_state(idt,idp).position)
+                dist = self.my_position.distance(self.state.player_state(idt,idp).position)
         if idt == 1:
             return (2,idx)
         else: return (1, idx)
         
     def procheduballon(self):
-        if self.my_position().distance(self.ball_position())>(settings.PLAYER_RADIUS+settings.BALL_RADIUS):
+        if self.my_position.distance(self.ball_position())>(settings.PLAYER_RADIUS+settings.BALL_RADIUS):
             return False
         return True
     
     def prochedugoal(self):
-        if self.my_position().distance(self.ball_position())>(settings.PLAYER_RADIUS+settings.BALL_RADIUS)*20:
+        if self.my_position.distance(self.ball_position())>(settings.PLAYER_RADIUS+settings.BALL_RADIUS)*20:
             return False
         return True
 
     def danslescages(self):
-        if self.my_position().distance(self.pos_monbut())>(settings.PLAYER_RADIUS+settings.BALL_RADIUS):
+        if self.my_position.distance(self.pos_monbut())>(settings.PLAYER_RADIUS+settings.BALL_RADIUS):
             return False
         return True
-        
-        
+    
+    #champ de defense        
+    def estdanscdd(self):
+        if idt == 1:
+            return my_position<=37.5
+        return my_position<=112.5
         
