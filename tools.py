@@ -56,6 +56,9 @@ class MyState(object):
             return (2,idx)
         else: return (1, idx)
         
+    #zones joueurs
+    
+
     def procheduballon(self):
         if self.my_position.distance(self.ball_position())>(settings.PLAYER_RADIUS+settings.BALL_RADIUS):
             return False
@@ -71,9 +74,23 @@ class MyState(object):
             return False
         return True
     
+    
+    
     #champ de defense        
     def estdanscdd(self):
-        if idt == 1:
-            return my_position<=37.5
-        return my_position<=112.5
+        if self.idt == 1:
+            return self.my_position.x<=37.5
+        return self.my_position.x>=112.5
+    
+    #ligne def (x)
+    def cdd(self):
+        if self.idt == 1:
+            return 37.5
+        return 112.5
         
+    #ball dans la zone
+    def balldanscdd(self):
+        if self.idt == 1:
+            return self.ball_position().x<75
+        return self.ball_position().x>75
+            

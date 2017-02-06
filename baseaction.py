@@ -25,11 +25,8 @@ class Je(object):
         
     def degagement(self):
         return SoccerAction(Vector2D(), Vector2D.create_random(-0.5,0.5)-self.mystate.my_position)
-        #champ de defense        
-    def estdanscdd(self):
-        if self.mystate.idt == 1:
-            return self.mystate.ball_position().x<=37.5
-        return self.mystate.ball_position().x<=112.5
+    
+    
     #plongeon for the fame
     #def pftf(self):
 
@@ -44,7 +41,7 @@ class StratJe(object):
         self.je = je
         self.mystate= mystate
         
-        
+    #degagement posi    
     #passe au goal
     #def pag(self):
     
@@ -61,6 +58,19 @@ class StratJe(object):
             return self.je.aller(self.mystate.ball_position())
         else:
             return self.je.shoot(self.mystate.equipierleplusproche)
+
+    
+            
+    #def action
+        
+    
+    
+    #mepositionne
+    def meposig(self):
+        return self.je.aller(self.mystate.pos_monbut())
+    def meposid(self):
+        pos = Vector2D(self.mystate.cdd(),self.mystate.my_position.y)
+        return self.je.aller(pos)
             
             
         

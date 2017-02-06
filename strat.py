@@ -1,0 +1,69 @@
+from soccersimulator.strategies  import Strategy
+from soccersimulator.mdpsoccer import SoccerTeam, Simulation, SoccerAction
+from soccersimulator.gui import SimuGUI,show_state,show_simu
+from soccersimulator.utils import Vector2D
+from soccersimulator import settings
+from tools import MyState
+from baseaction import Je, StratJe
+
+## Strategie aleatoire
+class RandomStrategy(Strategy):
+    def __init__(self):
+        Strategy.__init__(self,"Random")
+    def compute_strategy(self,state,id_team,id_player):
+        return SoccerAction(Vector2D.create_random(-0.5,0.5),Vector2D.create_random(-0.5,0.5))
+
+class StrategyAttaquant(Strategy):
+    def __init__(self):
+        Strategy.__init__(self,"Random")
+    def compute_strategy(self,state,id_team,id_player):
+        mystate=MyState(state,id_team,id_player)
+        je=Je(mystate)
+        stratje = StratJe(je, mystate)
+        
+        #print(state.step)
+        if state.step%4 == 0:
+            return je.shoot(mystate.pos_sonbut())
+        if state.step%3 == 0:
+            tourchoisis = state.step
+            while state.step != tourchoisis+30:
+                return stratje.asb()
+        if mystate.my_position != mystate.ball_position() and not mystate.procheduballon(): 
+            return je.aller(mystate.ball_position())
+        else:
+            return je.shoot(mystate.pos_sonbut())
+            
+
+class StrategyDefense(Strategy):
+    def __init__(self):
+        Strategy.__init__(self,"Random")
+    def compute_strategy(self,state,id_team,id_player):
+        mystate=MyState(state,id_team,id_player)
+        je=Je(mystate)
+        stratje = StratJe(je, mystate)
+        
+        if state.step == 1:
+            return stratje.meposid()
+        if state.step%12 == 0:     
+            if mystate.balldanscdd():
+                return je.aller(mystate.ball_position())
+        if state.step%5 == 0:
+                if mystate.procheduballon():
+                    return je.degagement() + stratje.meposid()
+        if not mystate.balldanscdd():
+            return stratje.meposid()
+        
+class StrategyGoal(Strategy):
+    def __init__(self):
+        Strategy.__init__(self,"GoalKeeper")
+        
+    def compute_strategy(self,state,id_team,id_player):
+        mystate=MyState(state,id_team,id_player)
+        je=Je(mystate)
+        stratje = StratJe(je, mystate)
+        
+        if mystate.my_position != mystate.pos_monbut() and not mystate.danslescages():
+            return stratje.meposig() 
+        #if mystate.prochedugoal() :
+         #   return je.aller(mystate.())
+    
