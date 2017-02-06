@@ -29,6 +29,9 @@ class MyState(object):
     
     def ball_position(self):
         return self.state.ball.position
+    
+    def ball_speed(self):
+        return self.state.ball.vitesse
         
     def pos_sonbut(self):
         if self.idt==1:

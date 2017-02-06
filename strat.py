@@ -32,6 +32,7 @@ class StrategyAttaquant(Strategy):
             return je.aller(mystate.ball_position())
         else:
             return je.shoot(mystate.pos_sonbut())
+        return stratje.interception() + je.shoot(mystate.post_sonbut())
             
 
 class StrategyDefense(Strategy):

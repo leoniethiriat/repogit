@@ -24,6 +24,7 @@ class Je(object):
         return SoccerAction(Vector2D(), p-self.mystate.my_position)
     
     
+    
     #plongeon for the fame
     #def pftf(self):
 
@@ -56,7 +57,9 @@ class StratJe(object):
         else:
             return self.je.shoot(self.mystate.equipierleplusproche)
 
-    
+    #atk action
+    def interception(self):
+        return self.mystate.aller(self.mystate.ball_position())+self.mystate.ball_speed() 
             
     #def action
     def degagement(self):
