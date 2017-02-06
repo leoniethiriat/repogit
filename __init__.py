@@ -8,7 +8,7 @@ def get_team(numba):
         #s.add("John",StrategyAttaquant())
         #s.add("Kerry", StrategyGoal())
         s.add("Leoniro", StrategyAttaquant())
-        #s.add("Saaroro", StrategyDefense())
+        s.add("Saaroro", RandomStrategy())
     if numba == 2:
         s.add("Saitaroro",StrategyDefense())  
         #s.add("Fred", StrategyGoal())

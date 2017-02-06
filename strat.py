@@ -31,7 +31,7 @@ class StrategyAttaquant(Strategy):
         if mystate.my_position != mystate.ball_position() and not mystate.procheduballon(): 
             return je.aller(mystate.ball_position())
         else:
-            return je.shoot(mystate.pos_sonbut())
+            return je.shoot(mystate.pos_sonbut()) + je.acceleration(mystate.ball_position(),500)
         return stratje.interception() + je.shoot(mystate.post_sonbut())
             
 

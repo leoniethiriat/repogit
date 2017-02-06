@@ -23,7 +23,8 @@ class Je(object):
     def shoot(self,p):
         return SoccerAction(Vector2D(), p-self.mystate.my_position)
     
-    
+    def acceleration(self, p, c):
+        return SoccerAction(c*(p-self.mystate.my_position), Vector2D()) 
     
     #plongeon for the fame
     #def pftf(self):
@@ -59,7 +60,7 @@ class StratJe(object):
 
     #atk action
     def interception(self):
-        return self.mystate.aller(self.mystate.ball_position())+self.mystate.ball_speed() 
+        return self.mystate.aller(self.mystate.ball_position()+self.mystate.ball_speed()*20) 
             
     #def action
     def degagement(self):
