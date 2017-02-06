@@ -42,14 +42,11 @@ class StrategyDefense(Strategy):
         je=Je(mystate)
         stratje = StratJe(je, mystate)
         
-        if state.step == 1:
-            return stratje.meposid()
-        if state.step%12 == 0:     
-            if mystate.balldanscdd():
-                return je.aller(mystate.ball_position())
-        if state.step%5 == 0:
-                if mystate.procheduballon():
-                    return je.degagement() + stratje.meposid()
+        #if state.step%12 == 0:     
+        if mystate.balldanscdd() and not mystate.procheduballon():
+            return je.aller(mystate.ball_position())
+        if mystate.procheduballon():
+            return stratje.degagement() + stratje.meposid()
         if not mystate.balldanscdd():
             return stratje.meposid()
         

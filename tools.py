@@ -33,8 +33,7 @@ class MyState(object):
     def pos_sonbut(self):
         if self.idt==1:
             return Vector2D(settings.GAME_WIDTH,settings.GAME_HEIGHT/2)
-        else:
-            return Vector2D(0,settings.GAME_HEIGHT/2)
+        return Vector2D(0,settings.GAME_HEIGHT/2)
     def pos_monbut(self):
         if self.idt==2:
             return Vector2D(settings.GAME_WIDTH,settings.GAME_HEIGHT/2)

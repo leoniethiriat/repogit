@@ -22,9 +22,6 @@ class Je(object):
     
     def shoot(self,p):
         return SoccerAction(Vector2D(), p-self.mystate.my_position)
-        
-    def degagement(self):
-        return SoccerAction(Vector2D(), Vector2D.create_random(-0.5,0.5)-self.mystate.my_position)
     
     
     #plongeon for the fame
@@ -62,7 +59,8 @@ class StratJe(object):
     
             
     #def action
-        
+    def degagement(self):
+        return self.je.shoot(self.mystate.pos_sonbut())
     
     
     #mepositionne
