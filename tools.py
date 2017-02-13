@@ -95,4 +95,5 @@ class MyState(object):
         if self.idt == 1:
             return self.ball_position().x<75
         return self.ball_position().x>75
+
             

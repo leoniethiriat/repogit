@@ -1,27 +1,29 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Jan 30 16:21:43 2017
-
-@author: 3407195
-"""
 
 from soccersimulator.mdpsoccer import SoccerTeam, Simulation, SoccerAction
 from soccersimulator.utils import Vector2D
 from soccersimulator import settings
 from tools import MyState 
+import math
 
 class Je(object):
 
     def __init__(self, mystate):
         self.mystate = mystate
 
+    def exp(self, x):
+        return 5*(1-math.exp(-2*x))
         
+    def puissance(self, x):
+        return 5*x**2
         
     def aller(self,p):
         return SoccerAction(p-self.mystate.my_position, Vector2D())
     
-    def shoot(self,p):
-        return SoccerAction(Vector2D(), p-self.mystate.my_position)
+    def shoot1(self,Uballgoal,p):
+        return SoccerAction(Vector2D(), self.exp(Uballgoal)*(p-self.mystate.my_position))
+        
+    def shoot2(self,Uballgoal,p):
+        return SoccerAction(Vector2D(),self.puissance(Uballgoal)*(p-self.mystate.my_position.normalize()))
     
     def acceleration(self, p, c):
         return SoccerAction(c*(p-self.mystate.my_position), Vector2D()) 
@@ -60,7 +62,7 @@ class StratJe(object):
 
     #atk action
     def interception(self):
-        return self.mystate.aller(self.mystate.ball_position()+self.mystate.ball_speed()*20) 
+        return self.je.aller(self.mystate.ball_position()+self.mystate.ball_speed()*20) 
             
     #def action
     def degagement(self):
