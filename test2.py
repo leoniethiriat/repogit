@@ -7,11 +7,11 @@ from soccersimulator.utils import Vector2D
 #from baseaction import Je, StratJe
 from __init__ import get_team
 
-state=SoccerState.create_initial_state(1,0)
-state.player_state(1,0).position=Vector2D(98,45)
+state=SoccerState.create_initial_state(1,1)
+state.player_state(1,0).position=Vector2D(120,45)
 state.ball.position=state.player_state(1,0).position
 
-simu= Simulation(get_team(1),get_team(2),50,state)
+simu= Simulation(get_team(1),get_team(2))
 #Jouer et afficher la partie
 show_simu(simu)
 #Jouer sans afficher

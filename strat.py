@@ -28,10 +28,10 @@ class StrategyAttaquant(Strategy):
         #tourchoisis = state.step
         #while state.step != tourchoisis+30:
         #return stratje.asb()
-        #if mystate.my_position != mystate.ball_position() and not mystate.procheduballon(): 
-        #return stratje.interception()
-        #else:
-        return je.shoot1(mystate.ball_position().distance(mystate.pos_monbut()),mystate.pos_sonbut()) #+ je.acceleration(mystate.ball_position(),500)
+        if mystate.my_position != mystate.ball_position() and not mystate.procheduballon(): 
+            return stratje.interception()
+        else:
+            return je.shoot1(mystate.ball_position().distance(mystate.pos_sonbut()),mystate.pos_sonbut()) #+ je.acceleration(mystate.ball_position(),500)
         #return stratje.interception() #+ je.shoot(mystate.post_sonbut())
             
 
@@ -45,7 +45,7 @@ class StrategyDefense(Strategy):
         
         #if state.step%12 == 0:     
         if mystate.balldanscdd() and not mystate.procheduballon():
-            return je.aller(mystate.ball_position())
+            return stratje.interception()
         if mystate.procheduballon():
             return stratje.degagement() + stratje.meposid()
         if not mystate.balldanscdd():

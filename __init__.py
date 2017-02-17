@@ -10,10 +10,10 @@ def get_team(numba):
         s.add("Leonie", StrategyAttaquant())
         #s.add("Saaroro", StrategyDefense())
         return s
-    #if numba == 2:
-        #s.add("Saitaroro",StrategyDefense())  
+    if numba == 2:
+        s.add("Saitaroro",StrategyDefense())  
         #s.add("Fred", StrategyGoal())
-        #s.add("Leonie", StrategyAttaquant())
+        s.add("Leonie", StrategyAttaquant())
         #s.add("Leoie", StrategyDefense())
     return s
     #if numba == 3
