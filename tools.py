@@ -49,14 +49,13 @@ class MyState(object):
         for (idt,idp) in self.state.players:
             if idt == self.idt: 
                 continue
-            if idp != self.idp:
+            if idp == self.idp:
                 continue
             if self.my_position.distance(self.state.player_state(idt,idp).position)<dist:
                 idx = idp
                 dist = self.my_position.distance(self.state.player_state(idt,idp).position)
-        if idt == 1:
-            return (2,idx)
-        else: return (1, idx)
+                pos = self.state.player_state(idt,idp).position
+        return pos
         
     #zones joueurs
     
@@ -95,5 +94,9 @@ class MyState(object):
         if self.idt == 1:
             return self.ball_position().x<75
         return self.ball_position().x>75
+    def balldanscda(self):
+        if self.idt == 1:
+            return self.ball_position().x>25
+        return self.ball_position().x<25
 
             
