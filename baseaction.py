@@ -11,7 +11,7 @@ class Je(object):
         self.mystate = mystate
 
     def exp(self, x):
-        return 9.3*(1-math.exp(-5*x))
+        return 4.66*(1-math.exp(-3.77*x))
     def exp_expe(self,a,b,x):
         return a*(1-math.exp(-b*x))
         
@@ -66,15 +66,11 @@ class StratJe(object):
     
     #passe au plus proche 
     def papp(self):
-        
-        if self.mystate.my_position != self.mystate.ball_position() and not self.mystate.procheduballon(): 
-            return self.je.aller(self.mystate.ball_position())
-        else:
-            return self.je.shoot1(self.mystate.ball_position().distance(self.mystate.equipierleplusproche),self.mystate.equipierleplusproche)
+        return self.je.shoot1(self.mystate.equipierleplusproche[0],self.mystate.equipierleplusproche[1])
 
     #atk action
     def interception(self):
-        return self.je.aller(self.mystate.ball_position()+self.mystate.ball_speed()*15) 
+        return self.je.aller(self.mystate.ball_position()+self.mystate.ball_speed()*12) 
             
     #def action
     def degagement(self):

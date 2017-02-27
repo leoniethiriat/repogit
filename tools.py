@@ -15,14 +15,15 @@ class MyState(object):
         for (idt,idp) in self.state.players:
             if idt != self.idt: 
                 continue
-            if idp != self.idp:
+            if idp == self.idp and idt == self.idt:
                 continue
             if self.my_position.distance(self.state.player_state(idt,idp).position)<dist:
                 idx = idp
                 dist = self.my_position.distance(self.state.player_state(idt,idp).position)
                 pos = self.state.player_state(idt,idp).position
-        return pos
-    
+            
+        tab = [dist, pos, idx]
+        return tab
     @property
     def my_position(self):
         return self.state.player_state(self.idt, self.idp).position
@@ -64,16 +65,16 @@ class MyState(object):
         if self.my_position.distance(self.ball_position())>(settings.PLAYER_RADIUS+settings.BALL_RADIUS):
             return False
         return True
+    def procheduballdef(self):
+        return self.my_position.distance(self.ball_position())>(settings.PLAYER_RADIUS+settings.BALL_RADIUS)
     
     def prochedugoal(self):
-        if self.my_position.distance(self.ball_position())>(settings.PLAYER_RADIUS+settings.BALL_RADIUS)*20:
-            return False
-        return True
+        return self.my_position.distance(self.ball_position())>(settings.PLAYER_RADIUS+settings.BALL_RADIUS)*20
+       
 
     def danslescages(self):
-        if self.my_position.distance(self.pos_monbut())>(settings.PLAYER_RADIUS+settings.BALL_RADIUS):
-            return False
-        return True
+        return self.my_position.distance(self.pos_monbut())>(settings.PLAYER_RADIUS+settings.BALL_RADIUS)
+       
     
     
     

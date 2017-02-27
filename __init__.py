@@ -1,5 +1,6 @@
-from strat import RandomStrategy, StrategyAttaquant, StrategyDefense, StrategyGoal
+from strat import *
 from soccersimulator.mdpsoccer import SoccerTeam
+from soccersimulator import Strategy
 
 
 def get_team(numba):
@@ -10,11 +11,11 @@ def get_team(numba):
         s.add("Leonie", StrategyAttaquant())
         #s.add("Saaroro", StrategyDefense())
         return s
-    #if numba == 2:
-        #s.add("Saitaroro",StrategyDefense())  
+    if numba == 2:
+        #s.add("Saitaroro",Strategy())  
         #s.add("Fred", StrategyGoal())
-        #s.add("Leonie", StrategyAttaquant())
-        #s.add("Leoie", StrategyDefense())
+        s.add("Leonie", StrategyAttaquant())
+        s.add("Leoie", StrategyDefense())
     return s
     #if numba == 3
     #if numba == 4:
