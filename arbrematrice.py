@@ -7,7 +7,7 @@ from sklearn.tree import DecisionTreeClassifier
 import os.path
 from tools import MyState
 from baseaction import *
-
+import pickle
 
 ## Strategie aleatoire
 class FonceStrategy(Strategy):
@@ -148,16 +148,17 @@ def apprentissage(fn):
     # Visualisation de l'arbre
     affiche_arbre(dt)
     genere_dot(dt,"test_arbre.dot")
+    pickle.dump(dt,open("lareussite.pkl","wb"))
     return dt
 
 def jouer_arbre(dt):
     ####
     # Utilisation de l'arbre
     ###
+    dtree = pickle.load(open(os.path.join(os.path.dirname(__file__),"lareussite.pkl"),"rb"))
     dic = {"Fonce":FonceStrategy(),"Static":StaticStrategy(),"Attaquant":StrategyAttaquant(), "Defense":StrategyDefense(), "GoalKeeper": StrategyGoal()
     , "Polposition": StrategyAttaquantP()}
-    treeStrat1 = DTreeStrategy(dt,dic,my_get_features)
-    treeStrat2 = DTreeStrategy(dt,dic,my_get_features)
+    treeStrat1 = DTreeStrategy(dtree,dic,my_get_features)
     team3 = SoccerTeam("Arbre Team")
     team3.add("Joueur 1",treeStrat1)
     team3.add("Joueur 2",treeStrat2)

@@ -84,5 +84,9 @@ class StrategyGoal(Strategy):
         if not mystate.balldanscdg() and mystate.danslescages():
             return stratje.meposig() 
         
-        
+class StratAttaquePlusPlus(Strategy):
+    def __init__(self):
+        Strategy.__init__(self,"AttaquePlusPlus")
+    def compute_strategy(self,state,id_team,id_player):
+        if
     
