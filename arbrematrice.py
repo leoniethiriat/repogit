@@ -32,10 +32,14 @@ class StrategyAttaquant(Strategy):
         stratje = StratJe(je, mystate)
         
         
+        #dribble
         if mystate.my_position != mystate.ball_position() and not mystate.procheduballon(): 
             return je.aller(mystate.ball_position())
         else:
-            return je.shoot1(mystate.ball_position().distance(mystate.pos_sonbut()),mystate.pos_sonbut()) 
+            if not mystate.estdanscda():
+                return stratje.dribble()
+            else:
+                return je.shoot1(mystate.ball_position().distance(mystate.pos_sonbut()),mystate.pos_sonbut()) 
             
 class StrategyDefense(Strategy):
     def __init__(self):
@@ -76,11 +80,8 @@ class StrategyAttaquantP(Strategy):
         mystate=MyState(state,id_team,id_player)
         je=Je(mystate)
         stratje = StratJe(je, mystate)
-        
-        if not mystate.ennemiedanscdd:
-            return stratje.meposia()
-        else:
-            return je.shoot1(mystate.ball_position().distance(mystate.pos_sonbut()),mystate.pos_sonbut()) 
+        return stratje.meposia()
+
 
 #######
 ## Constructioon des equipes
@@ -89,17 +90,6 @@ class StrategyAttaquantP(Strategy):
 team1 = SoccerTeam("team1")
 strat_j1 = KeyboardStrategy()
 strat_j2 = KeyboardStrategy()
-strat_j1.add('f',StaticStrategy())
-strat_j1.add('d', StrategyDefense())
-strat_j1.add('a', StrategyAttaquant())
-
-
-strat_j2.add('l', StrategyGoal())
-strat_j2.add('o', StrategyAttaquant())
-strat_j2.add('i', StaticStrategy())
-
-team1.add("Jexp 1",strat_j1)
-team1.add("Jexp 2", strat_j2)
 team2 = SoccerTeam("team2")
 team2.add("rien 1", StrategyAttaquant())
 team2.add("rien 2", StrategyDefense())
@@ -110,27 +100,44 @@ def my_get_features(state,idt,idp):
     """ extraction du vecteur de features d'un etat, ici distance a la balle, distance au but, distance balle but """
     mystate=MyState(state,idt,idp)
     p_pos= state.player_state(idt,idp).position
-    f1 = state.ball.position.x
-    f2 = state.ball.position.y
+    f1 = state.ball.position.distance(p_pos)
     """
      p_pos.distance( Vector2D((2-idt)*settings.GAME_WIDTH,settings.GAME_HEIGHT/2.))
     """
-    f3 = mystate.ennemieleplusproche().x
-    f4 = mystate.ennemieleplusproche().y
-    f5 = p_pos.x
-    f6 = p_pos.y
-    return [f1,f2,f3,f4,f5,f6]
+    f2 = mystate.ennemieleplusproche().distance(p_pos)
+    
+    f3 = mystate.equipierleplusproche[0]
+    f4 = mystate.distbut()
+    f5 = state.ball.position.distance(mystate.pos_monbut())
+    return [f1,f2,f3,f4,f5]
 
-
-def entrainement(fn):
+def entrainement1(fn):
+    strat_j1.add('a',StaticStrategy())
+    strat_j1.add('z', StrategyAttaquant())
+    strat_j1.add('e', StrategyAttaquantP())
+    team1.add("Jexp 1",strat_j1)
+    team1.add("Jexp 2", StrategyDefense())
+    simu = Simulation(team1,team2)
+    show_simu(simu)
+    
+    training_states = strat_j1.states
+    
+    dump_jsonz(training_states,fn)
+    
+    
+def entrainement2(fn):
+    strat_j2.add('w', StrategyGoal())
+    strat_j2.add('x', StrategyDefense())
+    team1.add("Jexp 1",StrategyAttaquant())
+    team1.add("Jexp 2", strat_j2)
     simu = Simulation(team1,team2)
     show_simu(simu)
     # recuperation de tous les etats
-    training_states = strat_j1.states
-    training_states2 = strat_j2.states
+    training_states = strat_j2.states
     # sauvegarde dans un fichier
     dump_jsonz(training_states,fn)
-    dump_jsonz(training_states2,fn)
+
+    
 
 def apprentissage(fn):
     ### chargement d'un fichier sauvegarder

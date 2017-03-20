@@ -72,6 +72,9 @@ class MyState(object):
 
     def danslescages(self):
         return self.my_position.distance(self.pos_monbut())>(settings.PLAYER_RADIUS+settings.BALL_RADIUS)
+        
+    def distbut(self):
+        return self.my_position.distance(self.pos_sonbut())
        
     
     
@@ -99,12 +102,16 @@ class MyState(object):
         return 30
         
     #ball dans la zone
+    def estdanscda(self):
+        if self.idt == 1:
+            return self.my_position.x>=110
+        return self.my_position.x<=40
         
         
     def ennemiedanscdd(self):
         if self.idt==1:
-            return self.ennemieleplusproche.x<75
-        return self.ennemieleplusproche.x>75
+            return self.ennemieleplusproche.x<40
+        return self.ennemieleplusproche.x>110
 
     def balldanscdd(self):
         if self.idt == 1:

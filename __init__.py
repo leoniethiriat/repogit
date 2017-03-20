@@ -14,12 +14,12 @@ def get_team(numba):
     if numba == 2:
         s.add("Saitaroro",StrategyAttaquant())  
         #s.add("Fred", StrategyGoal())
-        s.add("Leonie", StrategyGoal())
-        #s.add("Leoie", StrategyDefense())
+        #s.add("Leonie", StrategyGoal())
+        s.add("Leoie", StrategyDefense())
     if numba == 4:
         s.add("Saitaroro",StrategyAttaquant())  
         s.add("Pogboom", StrategyGoal())
-        s.add("Leonie", StrategyAttaquantP())
+        s.add("Leonie", StrategyAttaquant())
         s.add("LeonieElleestarchibelleettout", StrategyDefense())
     return s
     

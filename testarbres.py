@@ -17,12 +17,13 @@ def jouer_arbre(dt):
     ####
     # Utilisation de l'arbre
     ###
-    dicmatrice = {"Fonce":FonceStrategy(),"Static":StaticStrategy(),"Attaquant":StrategyAttaquant(), "Defense":StrategyDefense(), "GoalKeeper": StrategyGoal()}
+    dicmatrice = {"Fonce":FonceStrategy(),"Static":StaticStrategy(),"Attaquant":StrategyAttaquant(), "Defense":StrategyDefense(), "GoalKeeper": StrategyGoal()
+    , "Polposition": StrategyAttaquantP()}
     treeStrat1 = DTreeStrategy(dt,dicmatrice,my_get_features)
     treeStrat2 = DTreeStrategy(dt,dicmatrice,my_get_features)
     team3 = SoccerTeam("Arbre Team")
     team3.add("Joueur 1",treeStrat1)
-    team3.add("Joueur 2",treeStrat2)
+    team3.add("Joueur 2",StrategyDefense())
     simu = Simulation(team2,team3)
     show_simu(simu)
     

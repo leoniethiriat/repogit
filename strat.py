@@ -35,11 +35,14 @@ class StrategyAttaquant(Strategy):
         je=Je(mystate)
         stratje = StratJe(je, mystate)
         
-        
+        #dribble
         if mystate.my_position != mystate.ball_position() and not mystate.procheduballon(): 
             return je.aller(mystate.ball_position())
         else:
-            return je.shoot1(mystate.ball_position().distance(mystate.pos_sonbut()),mystate.pos_sonbut()) 
+            if not mystate.estdanscda():
+                return stratje.dribble()
+            else:
+                return je.shoot1(mystate.ball_position().distance(mystate.pos_sonbut()),mystate.pos_sonbut()) 
             
 class StrategyAttaquantP(Strategy):
     def __init__(self):
@@ -48,11 +51,7 @@ class StrategyAttaquantP(Strategy):
         mystate=MyState(state,id_team,id_player)
         je=Je(mystate)
         stratje = StratJe(je, mystate)
-        
-        if not mystate.ennemiedanscdd:
-            return stratje.meposia()
-        else:
-            return je.shoot1(mystate.ball_position().distance(mystate.pos_sonbut()),mystate.pos_sonbut()) 
+        return stratje.meposia()
             
 class StrategyDefense(Strategy):
     def __init__(self):

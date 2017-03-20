@@ -92,10 +92,10 @@ class StratJe(object):
     def meposid(self):
         pos = Vector2D(self.mystate.cdd(),self.mystate.my_position.y)
         return self.je.aller(pos)
-    def mesopia(self):
+    def meposia(self):
         pos = Vector2D(self.mystate.postir(), self.mystate.my_position.y)
         return self.je.aller(pos)
     #dribblecr7
     def dribble(self):
-            return self.je.shootcoef(self.mystate.pos_sonbut(), 0.5) + self.je.aller(self.mystate.ball_position())
+            return SoccerAction(Vector2D(),(self.mystate.pos_sonbut()-self.mystate.my_position).norm_max(1.8))
                   
