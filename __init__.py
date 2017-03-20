@@ -7,7 +7,7 @@ def get_team(numba):
     s = SoccerTeam(name="leoniro1")
     if numba == 1:
         #s.add("John",StrategyAttaquant())
-        s.add("Kerry", StrategyGoal())
+        #s.add("Kerry", StrategyGoal())
         s.add("Leonie", StrategyAttaquant())
         #s.add("Saaroro", StrategyDefense())
         return s
