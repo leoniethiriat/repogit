@@ -95,6 +95,17 @@ team2 = SoccerTeam("team2")
 team2.add("rien 1", StrategyAttaquant())
 team2.add("rien 2", StrategyDefense())
 
+strat_j1.add('z', StrategyAttaquant())
+strat_j1.add('a',StaticStrategy())
+strat_j1.add('e', StrategyAttaquantP())
+team1.add("Jexp 1",strat_j1)
+team1.add("Jexp 2", StrategyDefense())
+
+strat_j2.add('w', StrategyGoal())
+strat_j2.add('x', StrategyDefense())
+team4.add("Jexp 1",StrategyAttaquant())
+team4.add("Jexp 2", strat_j2)
+
 
 ### Transformation d'un etat en features : state,idt,idp -> R^d
 def my_get_features(state,idt,idp):
@@ -113,11 +124,7 @@ def my_get_features(state,idt,idp):
     return [f1,f2,f3,f4,f5]
 
 def entrainement1(fn):
-    strat_j1.add('z', StrategyAttaquant())
-    strat_j1.add('a',StaticStrategy())
-    strat_j1.add('e', StrategyAttaquantP())
-    team1.add("Jexp 1",strat_j1)
-    team1.add("Jexp 2", StrategyDefense())
+    
     simu = Simulation(team1,team2)
     show_simu(simu)
     
@@ -127,10 +134,8 @@ def entrainement1(fn):
     
     
 def entrainement2(fn):
-    strat_j2.add('w', StrategyGoal())
-    strat_j2.add('x', StrategyDefense())
-    team4.add("Jexp 1",StrategyAttaquant())
-    team4.add("Jexp 2", strat_j2)
+    
+    
     simu = Simulation(team4,team2)
     show_simu(simu)
     # recuperation de tous les etats
