@@ -87,7 +87,8 @@ class StrategyAttaquantP(Strategy):
 ## Constructioon des equipes
 #######
 
-team1 = SoccerTeam("team1")
+team1 = SoccerTeam("teamattaq")
+team4 = SoccerTeam("teamdef")
 strat_j1 = KeyboardStrategy()
 strat_j2 = KeyboardStrategy()
 team2 = SoccerTeam("team2")
@@ -112,8 +113,8 @@ def my_get_features(state,idt,idp):
     return [f1,f2,f3,f4,f5]
 
 def entrainement1(fn):
-    strat_j1.add('a',StaticStrategy())
     strat_j1.add('z', StrategyAttaquant())
+    strat_j1.add('a',StaticStrategy())
     strat_j1.add('e', StrategyAttaquantP())
     team1.add("Jexp 1",strat_j1)
     team1.add("Jexp 2", StrategyDefense())
@@ -128,9 +129,9 @@ def entrainement1(fn):
 def entrainement2(fn):
     strat_j2.add('w', StrategyGoal())
     strat_j2.add('x', StrategyDefense())
-    team1.add("Jexp 1",StrategyAttaquant())
-    team1.add("Jexp 2", strat_j2)
-    simu = Simulation(team1,team2)
+    team4.add("Jexp 1",StrategyAttaquant())
+    team4.add("Jexp 2", strat_j2)
+    simu = Simulation(team4,team2)
     show_simu(simu)
     # recuperation de tous les etats
     training_states = strat_j2.states
@@ -139,37 +140,29 @@ def entrainement2(fn):
 
     
 
-def apprentissage(fn):
+def apprentissage1(fn1,fn2,fn3):
     ### chargement d'un fichier sauvegarder
-    states_tuple = load_jsonz(fn)
+    states_tuple = load_jsonz(fn1)+load_jsonz(fn2)+load_jsonz(fn3)
     ## Apprentissage de l'arbre
     data_train, data_labels = build_apprentissage(states_tuple,my_get_features)
     dt = apprend_arbre(data_train,data_labels,depth=10)
     # Visualisation de l'arbre
     affiche_arbre(dt)
-    genere_dot(dt,"test_arbre.dot")
-    pickle.dump(dt,open("lareussite.pkl","wb"))
+    genere_dot(dt,"arbreattaq.dot")
+    pickle.dump(dt,open("attaquant.pkl","wb"))
+    return dt
+    
+def apprentissage2(fn1,fn2,fn3):
+    ### chargement d'un fichier sauvegarder
+    states_tuple = load_jsonz(fn1)+load_jsonz(fn2)+load_jsonz(fn3)
+    ## Apprentissage de l'arbre
+    data_train, data_labels = build_apprentissage(states_tuple,my_get_features)
+    dt = apprend_arbre(data_train,data_labels,depth=10)
+    # Visualisation de l'arbre
+    affiche_arbre(dt)
+    genere_dot(dt,"arbredef.dot")
+    pickle.dump(dt,open("defenseur.pkl","wb"))
     return dt
 
-def jouer_arbre(dt):
-    ####
-    # Utilisation de l'arbre
-    ###
-    dtree = pickle.load(open(os.path.join(os.path.dirname(__file__),"lareussite.pkl"),"rb"))
-    dic = {"Fonce":FonceStrategy(),"Static":StaticStrategy(),"Attaquant":StrategyAttaquant(), "Defense":StrategyDefense(), "GoalKeeper": StrategyGoal()
-    , "Polposition": StrategyAttaquantP()}
-    treeStrat1 = DTreeStrategy(dtree,dic,my_get_features)
-    team3 = SoccerTeam("Arbre Team")
-    team3.add("Joueur 1",treeStrat1)
-    team3.add("Joueur 2",treeStrat2)
-    simu = Simulation(team2,team3)
-    show_simu(simu)
 
-if __name__=="__main__":
-    fn = "test_states.jz"
-    if not os.path.isfile(fn):
-        entrainement(fn)
-    dt = apprentissage(fn)
-    jouer_arbre(dt)
-    
     
