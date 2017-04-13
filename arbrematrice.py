@@ -100,7 +100,7 @@ strat_j1.add('a',StaticStrategy())
 strat_j1.add('e', StrategyAttaquantP())
 team1.add("Jexp 1",strat_j1)
 team1.add("Jexp 2", StrategyDefense())
-
+ 
 strat_j2.add('w', StrategyGoal())
 strat_j2.add('x', StrategyDefense())
 team4.add("Jexp 1",StrategyAttaquant())
