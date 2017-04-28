@@ -27,6 +27,7 @@ def jouer_arbre():
     team3.add("Joueur 2",treeStrat2)
     simu = Simulation(team2,team3)
     show_simu(simu)
+    
 
 if __name__=="__main__":
     fn1 = "test_statesatt1.jz"

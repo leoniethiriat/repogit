@@ -1,4 +1,4 @@
-from strat import *
+from strat import StrategyAttaquant, StrategyDefense, StrategyGoal
 from soccersimulator.mdpsoccer import SoccerTeam
 
 
@@ -6,21 +6,16 @@ from soccersimulator.mdpsoccer import SoccerTeam
 def get_team(numba):
     s = SoccerTeam(name="leoniro1")
     if numba == 1:
-        #s.add("John",StrategyAttaquant())
-        #s.add("Kerry", StrategyGoal())
-        s.add("Leonie", StrategyAttaquant())
-        #s.add("Saaroro", StrategyDefense())
-        return s
+        s.add("totti", StrategyAttaquant())
+        
     if numba == 2:
-        s.add("Saitaroro",StrategyAttaquant())  
-        #s.add("Fred", StrategyGoal())
-        #s.add("Leonie", StrategyGoal())
-        s.add("Leoie", StrategyDefense())
+        s.add("totti",StrategyAttaquant())
+        s.add("maldini", StrategyDefense())
     if numba == 4:
-        s.add("Saitaroro",StrategyAttaquant())  
-        s.add("Pogboom", StrategyGoal())
-        s.add("Leonie", StrategyAttaquant())
-        s.add("LeonieElleestarchibelleettout", StrategyDefense())
+        s.add("totti",StrategyAttaquant())  
+        s.add("buffon", StrategyGoal())
+        s.add("delpiero", StrategyAttaquant())
+        s.add("maldini", StrategyDefense())
     return s
     
         

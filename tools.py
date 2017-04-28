@@ -1,4 +1,3 @@
-
 from soccersimulator.utils import Vector2D
 from soccersimulator import settings
 
